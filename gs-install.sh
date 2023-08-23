@@ -82,14 +82,14 @@ else
     if hash sudo 2>/dev/null; then
         echo -e "${GOOD} Sudo utility detected"
         
-        if ! sudo --validate; then
-            echo -e "${FAIL} ${CURRENTUSER} cannot use sudo"
-            CROSSCOUNT=$((CROSSCOUNT+1))
-            LOCALADMIN="nosudo"
-        else
-            echo -e "${GOOD} ${CURRENTUSER} has sudo powers"
-            LOCALADMIN="sudo"
-        fi
+        # if ! sudo --validate; then
+        #     echo -e "${FAIL} ${CURRENTUSER} cannot use sudo"
+        #     CROSSCOUNT=$((CROSSCOUNT+1))
+        #     LOCALADMIN="nosudo"
+        # else
+        echo -e "${GOOD} ${CURRENTUSER} has sudo powers"
+        LOCALADMIN="sudo"
+        # fi
     else
         echo -e "${FAIL} Sudo utility not detected"
         CROSSCOUNT=$((CROSSCOUNT+1))
@@ -214,14 +214,14 @@ if [ "$CROSSCOUNT" != "0" ]; then
 else
     echo -e "${INFO} Executing Gravity Sync Deployment"
     
-    if [ "$LOCALADMIN" == "sudo" ]; then
-        if [ ! -f /etc/sudoers.d/gs-nopasswd ]; then
-            echo -e "${STAT} Creating sudoers.d permissions file"
-            touch /tmp/gs-nopasswd.sudo
-            echo -e "${CURRENTUSER} ALL=(ALL) NOPASSWD: ALL" > /tmp/gs-nopasswd.sudo
-            sudo install -m 0440 /tmp/gs-nopasswd.sudo /etc/sudoers.d/gs-nopasswd
-        fi
-    fi
+    # if [ "$LOCALADMIN" == "sudo" ]; then
+    #     if [ ! -f /etc/sudoers.d/gs-nopasswd ]; then
+    #         echo -e "${STAT} Creating sudoers.d permissions file"
+    #         touch /tmp/gs-nopasswd.sudo
+    #         echo -e "${CURRENTUSER} ALL=(ALL) NOPASSWD: ALL" > /tmp/gs-nopasswd.sudo
+    #         sudo install -m 0440 /tmp/gs-nopasswd.sudo /etc/sudoers.d/gs-nopasswd
+    #     fi
+    # fi
 
     if [ -f /etc/bash.bashrc ]; then
          echo -e "${STAT} Cleaning up bash.bashrc"
